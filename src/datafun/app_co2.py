@@ -104,6 +104,9 @@ GRAIN: Final[str] = "one country or entity in one year"
 # This must match a numeric column name EXACTLY
 # as it appears in the data file.
 
+COUNTRY_NAME: Final[str] = "Brazil"
+# === This will be the country of focus ===
+
 TARGET_COLUMN: Final[str] = "co2"
 
 # === DECLARE THE FEATURE ===
@@ -122,7 +125,8 @@ FEATURE_COLUMN: Final[str] = "gdp"
 # The model and evaluation will provide evidence.
 
 FEATURE_DECISION: Final[str] = r"""
-I want to predict CO2 emissions.
+I want to predict whether GDP can be useful
+for prediction CO2 emissions in Brazil
 
 I selected GDP as the feature.
 
@@ -133,8 +137,8 @@ and other activities that can produce CO2 emissions.
 GDP might therefore contain useful information
 for predicting CO2 emissions.
 
-I do not know yet how well GDP will predict CO2 emissions.
-The modeling process will provide evidence.
+I do not know yet how well GDP will predict CO2 emissions
+for Brazil. The modeling process will provide evidence.
 """
 
 # === DECLARE THE TRAIN / TEST SPLIT ===
@@ -267,15 +271,18 @@ def main() -> None:
         TARGET_COLUMN,
     ]
 
-    df_model: pd.DataFrame = df.dropna(subset=required_columns).copy()
+    df_country: pd.DataFrame = df[df["country"] == COUNTRY_NAME].copy()
+    df_model: pd.DataFrame = df_country.dropna(subset=required_columns).copy()
 
     count_original: int = df.shape[0]
+    count_country: int = df_country.shape[0]
     count_model: int = df_model.shape[0]
-    count_dropped: int = count_original - count_model
+    count_dropped: int = count_country - count_model
 
     LOG.info(f"Original rows: {count_original}")
+    LOG.info(f"{COUNTRY_NAME} rows: {count_country}")
     LOG.info(f"Modeling rows: {count_model}")
-    LOG.info(f"Rows dropped: {count_dropped}")
+    LOG.info(f"Rows dropped for missing values: {count_dropped}")
 
     # scikit-learn expects X to be a 2-dimensional
     # feature matrix and y to be a 1-dimensional target.
@@ -445,7 +452,7 @@ def main() -> None:
     # CUSTOM: The analyst can customize
     # the returned Matplotlib Axes object.
 
-    prediction_ax.set_title("GDP vs. CO2 Emissions")
+    prediction_ax.set_title("Brazil: GDP vs. CO2 Emissions")
     prediction_ax.set_xlabel("GDP")
     prediction_ax.set_ylabel("CO2 Emissions")
     prediction_ax.legend()
@@ -482,7 +489,7 @@ def main() -> None:
     # CUSTOM: The analyst can customize
     # the returned Matplotlib Axes object.
 
-    residual_ax.set_title("Residuals for GDP Model")
+    residual_ax.set_title("Brazil: Residuals for GDP Model")
     residual_ax.set_xlabel("GDP")
     residual_ax.set_ylabel("Residual (Actual - Predicted CO2 Emissions)")
 
@@ -504,22 +511,29 @@ def main() -> None:
     # in a simple multi-line raw string.
 
     LOG.info(r"""CUSTOM OBSERVATIONS:
-    I used GDP to predict CO2 emissions.
+    I used GDP to predict CO2 emissions for Brazil.
 
-    The baseline RMSE was ...
-    The LinearRegression RMSE was ...
+    The baseline RMSE was 68.21.
+    The LinearRegression RMSE was 22.04.
 
     Compared with the baseline,
-    the LinearRegression model ...
+    the LinearRegression model substantially improved prediction performance.
 
-    The model R-squared was ...
+    The model R-squared was .891.
 
-    In the residual plot, I observed ...
+    In the residual plot, I observed that most residuals were relatively
+    close to zero, although one observation had a substantially larger
+    negative residual.
 
     Based on this evidence,
-    I conclude ...
+    I conclude that GDP was useful for predicting
+    Brazil's CO2 emissions in this dataset. However, with only seven test
+    observations, it is difficult to establish a clear pattern in the
+    residuals, and the results should be interpreted cautiously.
 
-    Next, I would like to try ...
+    Next, I would like to try training the model on earlier years and
+    testing it on later years to see whether GDP remains useful for
+    predicting CO2 emissions over time.
     """)
 
     LOG.info("In a script, call plt.show() at the end to display all charts.")

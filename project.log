@@ -612,3 +612,650 @@ will help assess whether the model is useful.
 2026-10-01 11:35:10 | INFO | P06 | ===================================
 2026-10-01 11:35:10 | INFO | P06 | END main() - Executed successfully!
 2026-10-01 11:35:10 | INFO | P06 | ===================================
+2026-10-01 11:56:54 | INFO | P06-CO2 | === RUN START ===
+2026-10-01 11:56:54 | INFO | P06-CO2 | project=P06 - LINEAR REGRESSION - CO2
+2026-10-01 11:56:54 | INFO | P06-CO2 | repo_dir=datafun-06-ml
+2026-10-01 11:56:54 | INFO | P06-CO2 | python=3.14.7
+2026-10-01 11:56:54 | INFO | P06-CO2 | os=Windows 11
+2026-10-01 11:56:54 | INFO | P06-CO2 | shell=powershell
+2026-10-01 11:56:54 | INFO | P06-CO2 | cwd=.
+2026-10-01 11:56:54 | INFO | P06-CO2 | github_actions=False
+2026-10-01 11:56:54 | INFO | P06-CO2 | ===================================
+2026-10-01 11:56:54 | INFO | P06-CO2 | START main()
+2026-10-01 11:56:54 | INFO | P06-CO2 | ===================================
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 01. OBSERVE the data and prior findings.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | data file = data\raw\owid-co2-data-subset.csv
+2026-10-01 11:56:54 | INFO | P06-CO2 | Data loaded successfully.
+2026-10-01 11:56:54 | INFO | P06-CO2 | Grain: one country or entity in one year
+2026-10-01 11:56:54 | INFO | P06-CO2 | Rows: 350
+2026-10-01 11:56:54 | INFO | P06-CO2 | Columns: 14
+2026-10-01 11:56:54 | INFO | P06-CO2 | Column names: ['country', 'year', 'population', 'gdp', 'co2', 'co2_per_capita', 'coal_co2', 'oil_co2', 'gas_co2', 'cement_co2', 'methane', 'nitrous_oxide', 'total_ghg', 'temperature_change_from_co2']
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 02. DECLARE the target and feature.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | Target:  co2
+2026-10-01 11:56:54 | INFO | P06-CO2 | Feature: gdp
+2026-10-01 11:56:54 | INFO | P06-CO2 | 
+I want to predict CO2 emissions.
+
+I selected GDP as the feature.
+
+Economic activity often requires energy,
+transportation, manufacturing, construction,
+and other activities that can produce CO2 emissions.
+
+GDP might therefore contain useful information
+for predicting CO2 emissions.
+
+I do not know yet how well GDP will predict CO2 emissions.
+The modeling process will provide evidence.
+
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 03. PREPARE the modeling data.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | Original rows: 350
+2026-10-01 11:56:54 | INFO | P06-CO2 | Brazil rows: 35
+2026-10-01 11:56:54 | INFO | P06-CO2 | Modeling rows: 33
+2026-10-01 11:56:54 | INFO | P06-CO2 | Rows dropped for missing values: 2
+2026-10-01 11:56:54 | INFO | P06-CO2 | X shape: (33, 1)
+2026-10-01 11:56:54 | INFO | P06-CO2 | y shape: (33,)
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 04. SPLIT into training and test data.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 11:56:54 | INFO | P06-CO2 | Training rows: 26
+2026-10-01 11:56:54 | INFO | P06-CO2 | Test rows: 7
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 05. BASELINE with a simple reference model.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore GDP
+and predict the average CO2 emissions
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 11:56:54 | INFO | P06-CO2 | Baseline strategy: mean
+2026-10-01 11:56:54 | INFO | P06-CO2 | Baseline RMSE: 68.21
+2026-10-01 11:56:54 | INFO | P06-CO2 | Baseline R-squared: -0.042
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 06. TRAIN a LinearRegression model.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 11:56:54 | INFO | P06-CO2 | The model learned this line:
+2026-10-01 11:56:54 | INFO | P06-CO2 | co2 = 1.39254e-10 * gdp + 71.0383
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 07. PREDICT on X_test.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | Predictions created: 7
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | BASELINE RESULTS
+2026-10-01 11:56:54 | INFO | P06-CO2 | RMSE:      68.21
+2026-10-01 11:56:54 | INFO | P06-CO2 | R-squared: -0.042
+2026-10-01 11:56:54 | INFO | P06-CO2 | LINEAR REGRESSION RESULTS
+2026-10-01 11:56:54 | INFO | P06-CO2 | RMSE:      22.04
+2026-10-01 11:56:54 | INFO | P06-CO2 | R-squared: 0.891
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 09. VISUALIZE predictions and residuals.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-predictions.png.
+2026-10-01 11:56:54 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-residuals.png.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | 10. ASSESS the results.
+2026-10-01 11:56:54 | INFO | P06-CO2 | -------------------------------
+2026-10-01 11:56:54 | INFO | P06-CO2 | CUSTOM OBSERVATIONS:
+    I used GDP to predict CO2 emissions.
+
+    The baseline RMSE was ...
+    The LinearRegression RMSE was ...
+
+    Compared with the baseline,
+    the LinearRegression model ...
+
+    The model R-squared was ...
+
+    In the residual plot, I observed ...
+
+    Based on this evidence,
+    I conclude ...
+
+    Next, I would like to try ...
+    
+2026-10-01 11:56:54 | INFO | P06-CO2 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 11:56:54 | INFO | P06-CO2 | Close all chart windows (with the close button) to continue.
+2026-10-01 11:57:12 | INFO | P06-CO2 | ===================================
+2026-10-01 11:57:12 | INFO | P06-CO2 | END main() - Executed successfully!
+2026-10-01 11:57:12 | INFO | P06-CO2 | ===================================
+2026-10-01 12:19:56 | INFO | P06-CO2 | === RUN START ===
+2026-10-01 12:19:56 | INFO | P06-CO2 | project=P06 - LINEAR REGRESSION - CO2
+2026-10-01 12:19:56 | INFO | P06-CO2 | repo_dir=datafun-06-ml
+2026-10-01 12:19:56 | INFO | P06-CO2 | python=3.14.7
+2026-10-01 12:19:56 | INFO | P06-CO2 | os=Windows 11
+2026-10-01 12:19:56 | INFO | P06-CO2 | shell=powershell
+2026-10-01 12:19:56 | INFO | P06-CO2 | cwd=.
+2026-10-01 12:19:56 | INFO | P06-CO2 | github_actions=False
+2026-10-01 12:19:56 | INFO | P06-CO2 | ===================================
+2026-10-01 12:19:56 | INFO | P06-CO2 | START main()
+2026-10-01 12:19:56 | INFO | P06-CO2 | ===================================
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 01. OBSERVE the data and prior findings.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | data file = data\raw\owid-co2-data-subset.csv
+2026-10-01 12:19:56 | INFO | P06-CO2 | Data loaded successfully.
+2026-10-01 12:19:56 | INFO | P06-CO2 | Grain: one country or entity in one year
+2026-10-01 12:19:56 | INFO | P06-CO2 | Rows: 350
+2026-10-01 12:19:56 | INFO | P06-CO2 | Columns: 14
+2026-10-01 12:19:56 | INFO | P06-CO2 | Column names: ['country', 'year', 'population', 'gdp', 'co2', 'co2_per_capita', 'coal_co2', 'oil_co2', 'gas_co2', 'cement_co2', 'methane', 'nitrous_oxide', 'total_ghg', 'temperature_change_from_co2']
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 02. DECLARE the target and feature.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | Target:  co2
+2026-10-01 12:19:56 | INFO | P06-CO2 | Feature: gdp
+2026-10-01 12:19:56 | INFO | P06-CO2 | 
+I want to predict CO2 emissions.
+
+I selected GDP as the feature.
+
+Economic activity often requires energy,
+transportation, manufacturing, construction,
+and other activities that can produce CO2 emissions.
+
+GDP might therefore contain useful information
+for predicting CO2 emissions.
+
+I do not know yet how well GDP will predict CO2 emissions.
+The modeling process will provide evidence.
+
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 03. PREPARE the modeling data.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | Original rows: 350
+2026-10-01 12:19:56 | INFO | P06-CO2 | Brazil rows: 35
+2026-10-01 12:19:56 | INFO | P06-CO2 | Modeling rows: 33
+2026-10-01 12:19:56 | INFO | P06-CO2 | Rows dropped for missing values: 2
+2026-10-01 12:19:56 | INFO | P06-CO2 | X shape: (33, 1)
+2026-10-01 12:19:56 | INFO | P06-CO2 | y shape: (33,)
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 04. SPLIT into training and test data.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 12:19:56 | INFO | P06-CO2 | Training rows: 26
+2026-10-01 12:19:56 | INFO | P06-CO2 | Test rows: 7
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 05. BASELINE with a simple reference model.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore GDP
+and predict the average CO2 emissions
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 12:19:56 | INFO | P06-CO2 | Baseline strategy: mean
+2026-10-01 12:19:56 | INFO | P06-CO2 | Baseline RMSE: 68.21
+2026-10-01 12:19:56 | INFO | P06-CO2 | Baseline R-squared: -0.042
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 06. TRAIN a LinearRegression model.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 12:19:56 | INFO | P06-CO2 | The model learned this line:
+2026-10-01 12:19:56 | INFO | P06-CO2 | co2 = 1.39254e-10 * gdp + 71.0383
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 07. PREDICT on X_test.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | Predictions created: 7
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | BASELINE RESULTS
+2026-10-01 12:19:56 | INFO | P06-CO2 | RMSE:      68.21
+2026-10-01 12:19:56 | INFO | P06-CO2 | R-squared: -0.042
+2026-10-01 12:19:56 | INFO | P06-CO2 | LINEAR REGRESSION RESULTS
+2026-10-01 12:19:56 | INFO | P06-CO2 | RMSE:      22.04
+2026-10-01 12:19:56 | INFO | P06-CO2 | R-squared: 0.891
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:56 | INFO | P06-CO2 | 09. VISUALIZE predictions and residuals.
+2026-10-01 12:19:56 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:57 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-predictions.png.
+2026-10-01 12:19:57 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-residuals.png.
+2026-10-01 12:19:57 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:57 | INFO | P06-CO2 | 10. ASSESS the results.
+2026-10-01 12:19:57 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:19:57 | INFO | P06-CO2 | CUSTOM OBSERVATIONS:
+    I used GDP to predict CO2 emissions for Brazil.
+
+    The baseline RMSE was 68.21
+    The LinearRegression RMSE was 22.04
+
+    Compared with the baseline,
+    the LinearRegression model substantially improved prediction performance.
+
+    The model R-squared was .891
+
+    In the residual plot, I observed that most residuals were relatively
+    close to zero, although one observation had a substantially larger
+    negative residual.
+
+    Based on this evidence,
+    I conclude that GDP was useful for predicting
+    Brazil's CO2 emissions in this dataset. However, with only seven test
+    observations, it is difficult to establish a clear pattern in the
+    residuals, and the results should be interpreted cautiously.
+
+    Next, I would like to try training the model on earlier years and
+    testing it on later years to see whether GDP remains useful for
+    predicting CO2 emissions over time.
+    
+2026-10-01 12:19:57 | INFO | P06-CO2 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 12:19:57 | INFO | P06-CO2 | Close all chart windows (with the close button) to continue.
+2026-10-01 12:20:14 | INFO | P06-CO2 | ===================================
+2026-10-01 12:20:14 | INFO | P06-CO2 | END main() - Executed successfully!
+2026-10-01 12:20:14 | INFO | P06-CO2 | ===================================
+2026-10-01 12:26:37 | INFO | P06-CO2 | === RUN START ===
+2026-10-01 12:26:37 | INFO | P06-CO2 | project=P06 - LINEAR REGRESSION - CO2
+2026-10-01 12:26:37 | INFO | P06-CO2 | repo_dir=datafun-06-ml
+2026-10-01 12:26:37 | INFO | P06-CO2 | python=3.14.7
+2026-10-01 12:26:37 | INFO | P06-CO2 | os=Windows 11
+2026-10-01 12:26:37 | INFO | P06-CO2 | shell=powershell
+2026-10-01 12:26:37 | INFO | P06-CO2 | cwd=.
+2026-10-01 12:26:37 | INFO | P06-CO2 | github_actions=False
+2026-10-01 12:26:37 | INFO | P06-CO2 | ===================================
+2026-10-01 12:26:37 | INFO | P06-CO2 | START main()
+2026-10-01 12:26:37 | INFO | P06-CO2 | ===================================
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 01. OBSERVE the data and prior findings.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | data file = data\raw\owid-co2-data-subset.csv
+2026-10-01 12:26:37 | INFO | P06-CO2 | Data loaded successfully.
+2026-10-01 12:26:37 | INFO | P06-CO2 | Grain: one country or entity in one year
+2026-10-01 12:26:37 | INFO | P06-CO2 | Rows: 350
+2026-10-01 12:26:37 | INFO | P06-CO2 | Columns: 14
+2026-10-01 12:26:37 | INFO | P06-CO2 | Column names: ['country', 'year', 'population', 'gdp', 'co2', 'co2_per_capita', 'coal_co2', 'oil_co2', 'gas_co2', 'cement_co2', 'methane', 'nitrous_oxide', 'total_ghg', 'temperature_change_from_co2']
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 02. DECLARE the target and feature.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | Target:  co2
+2026-10-01 12:26:37 | INFO | P06-CO2 | Feature: gdp
+2026-10-01 12:26:37 | INFO | P06-CO2 | 
+I want to predict whether GDP can be useful
+for prediction CO2 emissions in Brazil
+
+I selected GDP as the feature.
+
+Economic activity often requires energy,
+transportation, manufacturing, construction,
+and other activities that can produce CO2 emissions.
+
+GDP might therefore contain useful information
+for predicting CO2 emissions.
+
+I do not know yet how well GDP will predict CO2 emissions
+for Brazil. The modeling process will provide evidence.
+
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 03. PREPARE the modeling data.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | Original rows: 350
+2026-10-01 12:26:37 | INFO | P06-CO2 | Brazil rows: 35
+2026-10-01 12:26:37 | INFO | P06-CO2 | Modeling rows: 33
+2026-10-01 12:26:37 | INFO | P06-CO2 | Rows dropped for missing values: 2
+2026-10-01 12:26:37 | INFO | P06-CO2 | X shape: (33, 1)
+2026-10-01 12:26:37 | INFO | P06-CO2 | y shape: (33,)
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 04. SPLIT into training and test data.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 12:26:37 | INFO | P06-CO2 | Training rows: 26
+2026-10-01 12:26:37 | INFO | P06-CO2 | Test rows: 7
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 05. BASELINE with a simple reference model.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore GDP
+and predict the average CO2 emissions
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 12:26:37 | INFO | P06-CO2 | Baseline strategy: mean
+2026-10-01 12:26:37 | INFO | P06-CO2 | Baseline RMSE: 68.21
+2026-10-01 12:26:37 | INFO | P06-CO2 | Baseline R-squared: -0.042
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 06. TRAIN a LinearRegression model.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 12:26:37 | INFO | P06-CO2 | The model learned this line:
+2026-10-01 12:26:37 | INFO | P06-CO2 | co2 = 1.39254e-10 * gdp + 71.0383
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 07. PREDICT on X_test.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | Predictions created: 7
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | BASELINE RESULTS
+2026-10-01 12:26:37 | INFO | P06-CO2 | RMSE:      68.21
+2026-10-01 12:26:37 | INFO | P06-CO2 | R-squared: -0.042
+2026-10-01 12:26:37 | INFO | P06-CO2 | LINEAR REGRESSION RESULTS
+2026-10-01 12:26:37 | INFO | P06-CO2 | RMSE:      22.04
+2026-10-01 12:26:37 | INFO | P06-CO2 | R-squared: 0.891
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 09. VISUALIZE predictions and residuals.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-predictions.png.
+2026-10-01 12:26:37 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-residuals.png.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | 10. ASSESS the results.
+2026-10-01 12:26:37 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:26:37 | INFO | P06-CO2 | CUSTOM OBSERVATIONS:
+    I used GDP to predict CO2 emissions for Brazil.
+
+    The baseline RMSE was 68.21.
+    The LinearRegression RMSE was 22.04.
+
+    Compared with the baseline,
+    the LinearRegression model substantially improved prediction performance.
+
+    The model R-squared was .891.
+
+    In the residual plot, I observed that most residuals were relatively
+    close to zero, although one observation had a substantially larger
+    negative residual.
+
+    Based on this evidence,
+    I conclude that GDP was useful for predicting
+    Brazil's CO2 emissions in this dataset. However, with only seven test
+    observations, it is difficult to establish a clear pattern in the
+    residuals, and the results should be interpreted cautiously.
+
+    Next, I would like to try training the model on earlier years and
+    testing it on later years to see whether GDP remains useful for
+    predicting CO2 emissions over time.
+    
+2026-10-01 12:26:37 | INFO | P06-CO2 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 12:26:37 | INFO | P06-CO2 | Close all chart windows (with the close button) to continue.
+2026-10-01 12:26:45 | INFO | P06-CO2 | ===================================
+2026-10-01 12:26:45 | INFO | P06-CO2 | END main() - Executed successfully!
+2026-10-01 12:26:45 | INFO | P06-CO2 | ===================================
+2026-10-01 12:34:40 | INFO | P06-CO2 | === RUN START ===
+2026-10-01 12:34:40 | INFO | P06-CO2 | project=P06 - LINEAR REGRESSION - CO2
+2026-10-01 12:34:40 | INFO | P06-CO2 | repo_dir=datafun-06-ml
+2026-10-01 12:34:40 | INFO | P06-CO2 | python=3.14.7
+2026-10-01 12:34:40 | INFO | P06-CO2 | os=Windows 11
+2026-10-01 12:34:40 | INFO | P06-CO2 | shell=powershell
+2026-10-01 12:34:40 | INFO | P06-CO2 | cwd=.
+2026-10-01 12:34:40 | INFO | P06-CO2 | github_actions=False
+2026-10-01 12:34:40 | INFO | P06-CO2 | ===================================
+2026-10-01 12:34:40 | INFO | P06-CO2 | START main()
+2026-10-01 12:34:40 | INFO | P06-CO2 | ===================================
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 01. OBSERVE the data and prior findings.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | data file = data\raw\owid-co2-data-subset.csv
+2026-10-01 12:34:40 | INFO | P06-CO2 | Data loaded successfully.
+2026-10-01 12:34:40 | INFO | P06-CO2 | Grain: one country or entity in one year
+2026-10-01 12:34:40 | INFO | P06-CO2 | Rows: 350
+2026-10-01 12:34:40 | INFO | P06-CO2 | Columns: 14
+2026-10-01 12:34:40 | INFO | P06-CO2 | Column names: ['country', 'year', 'population', 'gdp', 'co2', 'co2_per_capita', 'coal_co2', 'oil_co2', 'gas_co2', 'cement_co2', 'methane', 'nitrous_oxide', 'total_ghg', 'temperature_change_from_co2']
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 02. DECLARE the target and feature.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | Target:  co2
+2026-10-01 12:34:40 | INFO | P06-CO2 | Feature: gdp
+2026-10-01 12:34:40 | INFO | P06-CO2 | 
+I want to predict whether GDP can be useful
+for prediction CO2 emissions in Brazil
+
+I selected GDP as the feature.
+
+Economic activity often requires energy,
+transportation, manufacturing, construction,
+and other activities that can produce CO2 emissions.
+
+GDP might therefore contain useful information
+for predicting CO2 emissions.
+
+I do not know yet how well GDP will predict CO2 emissions
+for Brazil. The modeling process will provide evidence.
+
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 03. PREPARE the modeling data.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | Original rows: 350
+2026-10-01 12:34:40 | INFO | P06-CO2 | Brazil rows: 35
+2026-10-01 12:34:40 | INFO | P06-CO2 | Modeling rows: 33
+2026-10-01 12:34:40 | INFO | P06-CO2 | Rows dropped for missing values: 2
+2026-10-01 12:34:40 | INFO | P06-CO2 | X shape: (33, 1)
+2026-10-01 12:34:40 | INFO | P06-CO2 | y shape: (33,)
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 04. SPLIT into training and test data.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 
+I will use 80% of the modeling rows for training
+and hold back 20% for testing.
+
+I want most of the available data to be available
+for learning the model,
+while still keeping a separate set of observations
+that the model did not see during training.
+
+The test rows will be used later
+to evaluate how the trained model performs
+on unseen observations.
+
+I will use a random seed of 42.
+
+The specific value 42 is not analytically important.
+I use a fixed seed so the random split is reproducible.
+Running the project again will produce the same
+training and test observations,
+which makes results easier to reproduce and compare.
+
+2026-10-01 12:34:40 | INFO | P06-CO2 | Training rows: 26
+2026-10-01 12:34:40 | INFO | P06-CO2 | Test rows: 7
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 05. BASELINE with a simple reference model.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 
+Before evaluating the LinearRegression model,
+I need a simple baseline for comparison.
+
+The baseline will ignore GDP
+and predict the average CO2 emissions
+from the training data for every test observation.
+
+A useful predictive model should improve
+on this simple reference prediction.
+
+2026-10-01 12:34:40 | INFO | P06-CO2 | Baseline strategy: mean
+2026-10-01 12:34:40 | INFO | P06-CO2 | Baseline RMSE: 68.21
+2026-10-01 12:34:40 | INFO | P06-CO2 | Baseline R-squared: -0.042
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 06. TRAIN a LinearRegression model.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 
+I will use LinearRegression.
+
+Linear regression fits a straight-line relationship
+between the selected feature and target.
+
+This gives a simple and interpretable model
+that can be compared with the baseline.
+
+Fitting a line does not prove that a straight line
+is a good description of the relationship.
+
+The evaluation metrics and residual plot
+will help assess whether the model is useful.
+
+2026-10-01 12:34:40 | INFO | P06-CO2 | The model learned this line:
+2026-10-01 12:34:40 | INFO | P06-CO2 | co2 = 1.39254e-10 * gdp + 71.0383
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 07. PREDICT on X_test.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | Predictions created: 7
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 08. EVALUATE baseline vs model on y_test.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | BASELINE RESULTS
+2026-10-01 12:34:40 | INFO | P06-CO2 | RMSE:      68.21
+2026-10-01 12:34:40 | INFO | P06-CO2 | R-squared: -0.042
+2026-10-01 12:34:40 | INFO | P06-CO2 | LINEAR REGRESSION RESULTS
+2026-10-01 12:34:40 | INFO | P06-CO2 | RMSE:      22.04
+2026-10-01 12:34:40 | INFO | P06-CO2 | R-squared: 0.891
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | 09. VISUALIZE predictions and residuals.
+2026-10-01 12:34:40 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:40 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-predictions.png.
+2026-10-01 12:34:41 | INFO | P06-CO2 | Chart saved successfully at docs\images\co2-regression-residuals.png.
+2026-10-01 12:34:41 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:41 | INFO | P06-CO2 | 10. ASSESS the results.
+2026-10-01 12:34:41 | INFO | P06-CO2 | -------------------------------
+2026-10-01 12:34:41 | INFO | P06-CO2 | CUSTOM OBSERVATIONS:
+    I used GDP to predict CO2 emissions for Brazil.
+
+    The baseline RMSE was 68.21.
+    The LinearRegression RMSE was 22.04.
+
+    Compared with the baseline,
+    the LinearRegression model substantially improved prediction performance.
+
+    The model R-squared was .891.
+
+    In the residual plot, I observed that most residuals were relatively
+    close to zero, although one observation had a substantially larger
+    negative residual.
+
+    Based on this evidence,
+    I conclude that GDP was useful for predicting
+    Brazil's CO2 emissions in this dataset. However, with only seven test
+    observations, it is difficult to establish a clear pattern in the
+    residuals, and the results should be interpreted cautiously.
+
+    Next, I would like to try training the model on earlier years and
+    testing it on later years to see whether GDP remains useful for
+    predicting CO2 emissions over time.
+    
+2026-10-01 12:34:41 | INFO | P06-CO2 | In a script, call plt.show() at the end to display all charts.
+2026-10-01 12:34:41 | INFO | P06-CO2 | Close all chart windows (with the close button) to continue.
+2026-10-01 12:34:44 | INFO | P06-CO2 | ===================================
+2026-10-01 12:34:44 | INFO | P06-CO2 | END main() - Executed successfully!
+2026-10-01 12:34:44 | INFO | P06-CO2 | ===================================
