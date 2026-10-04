@@ -13,17 +13,13 @@
 
 ## Project Goal
 
-This project introduces **linear regression**, the process of
-fitting a model to data and using it to make predictions.
+This project explores linear regression and predictive analytics using
+Our World in Data CO2 emissions data.
 
-Think about two variables that might be related:
-
-- Does study time predict exam scores?
-- Does temperature predict energy usage?
-- Does advertising spend predict revenue?
-
-Your goal: run the example, read the code,
-and apply the same approach to a dataset and question of your own choosing.
+My analysis focuses specifically on Brazil and investigates whether GDP
+can be useful for predicting annual CO2 emissions. The project compares
+a LinearRegression model with a simple baseline and evaluates the results
+using RMSE, R-squared, prediction visualizations, and residuals.
 
 For data suggestions, please see [data/raw/README.md](data/raw/README.md).
 
@@ -58,16 +54,24 @@ EVALUATE    baseline vs model on y_test
 - **pyproject.toml** - project configuration
 - **zensical.toml** - documentation configuration
 
+## Key Result
+
+For the Brazil-specific analysis, the LinearRegression model produced
+an RMSE of 22.04 compared with a baseline RMSE of 68.21, with an
+R-squared value of 0.891.
+
+These results suggest that GDP was useful for predicting CO2 emissions
+in this dataset. However, the test set contained only seven observations,
+so the results should be interpreted cautiously.
+
 ## Common Workflow
 
 Use the following workflow to set up, run, check, and maintain the project.
 
 ## Success
 
-After completing Phase 1. **Start & Run**, you'll have the example project,
-running on your machine.
-A new file `project.log` will appear in the root project folder
-and running the example script will print out:
+The project runs successfully when the Brazil CO2 analysis completes
+and the terminal displays:
 
 ```shell
 ===================================
@@ -123,8 +127,8 @@ uv run pre-commit run --all-files
 git add -A
 uv run pre-commit run --all-files
 
-# run the penguin example: is there a linear relationship?
-uv run python -m datafun.app
+# run the Brazil CO2 regression analysis
+uv run python -m datafun.app_co2
 
 # do chores
 uv run ruff format .
@@ -185,7 +189,7 @@ Press `Ctrl c` (both keys together) or `Ctrl+Z` then `Enter` on Windows.
 
 - [Documentation](https://JMTOMASSO.github.io/datafun-06-ml/)
 
-## Data Card
+## Example Data Card
 
 - [Palmer Penguins Data Card](./docs/data-card.md)
 
